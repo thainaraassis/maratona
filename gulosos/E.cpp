@@ -15,13 +15,17 @@ int main() {
 
     int aberto = 0;
     int fechado = 0;
+    int consecutivos = 0;
 
-    if(n % 2 != 0) cout << ":(" << endl;
+    if(n % 2 != 0 || s[0] == ')' || s[n-1] == '(') cout << ":(" << endl;
     else {
         for(int i = 0; i < n; i++) {
             if(s[i] == '(') aberto++;
             else if(s[i] == ')') fechado++;
-            else {
+        }
+
+        for(int i = 0; i < n; i++) {
+            if(s[i] =='?') {
                 if(aberto < n/2) {
                     s[i] = '(';
                     aberto++;
@@ -33,8 +37,18 @@ int main() {
             }
         }
 
-        if(aberto == fechado) cout << s << endl;
-        else cout << ":(" << endl;
+        aberto = 0;
+        fechado = 0;
+        for(int i = 1; i < n; i++) {
+            if(s[i] == '(') aberto++;
+            else if(s[i] == ')') fechado++;
+            if(i <= n-1 && aberto == fechado) {
+                cout << ":(" << endl;
+                return 0;
+            }
+        }
+        cout << s << endl;
+        
     }
     
     return 0;
